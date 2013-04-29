@@ -28,19 +28,16 @@ task(cacheServer, type: JavaExec) {
     systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
 }
 
-task(loadcache, type: JavaExec) {
+// coherence client
+// gradle cc -q -Pcc="main class name"
+task(cc, type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.flyisland.examples.PTx.LoadCache'
+    main = "org.flyisland.examples.PTx.$cc"
+    standardInput = System.in
     systemProperty "tangosol.coherence.distributed.localstorage", "false"
     systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
 }
 
-task(readcache, type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    main = 'org.flyisland.examples.PTx.ReadCache'
-    systemProperty "tangosol.coherence.distributed.localstorage", "false"
-    systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
-}
 
 sourceSets {
     main {
