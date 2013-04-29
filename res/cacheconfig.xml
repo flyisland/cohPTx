@@ -13,6 +13,10 @@
       <cache-name>accounts</cache-name>
       <scheme-name>AccountBalance_P_Scheme</scheme-name>
     </cache-mapping>
+    <cache-mapping>
+      <cache-name>balances</cache-name>
+      <scheme-name>AccountBalance_P_Scheme</scheme-name>
+    </cache-mapping>
   </caching-scheme-mapping>
 
   <caching-schemes>

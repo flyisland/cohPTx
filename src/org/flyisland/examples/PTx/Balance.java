@@ -1,16 +1,18 @@
 package org.flyisland.examples.PTx;
 
-import java.io.IOException;
+import com.tangosol.io.pof.annotation.Portable;
+import com.tangosol.io.pof.annotation.PortableProperty;
 
-import com.tangosol.io.pof.PofReader;
-import com.tangosol.io.pof.PofWriter;
-import com.tangosol.io.pof.PortableObject;
-
-public class Balance implements PortableObject {
-	String	accountId;
-	double	balance;
+@Portable
+public class Balance {
+	@PortableProperty(0)	private String	accountId;
+	@PortableProperty(1)	private double	balance;
 	
 	
+	public Balance() {
+		super();
+	}
+
 	public Balance(String accountId, double balance) {
 		super();
 		this.accountId = accountId;
@@ -34,15 +36,7 @@ public class Balance implements PortableObject {
 	}
 
 	@Override
-	public void readExternal(PofReader reader) throws IOException {
-		setAccountId(reader.readString(0));
-		setBalance(reader.readDouble(1));
+	public String toString() {
+		return "Balance [accountId=" + accountId + ", balance=" + balance + "]";
 	}
-
-	@Override
-	public void writeExternal(PofWriter writer) throws IOException {
-		writer.writeString(0, getAccountId());
-		writer.writeDouble(1, getBalance());
-	}
-
 }

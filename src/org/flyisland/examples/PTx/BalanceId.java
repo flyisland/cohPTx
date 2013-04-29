@@ -1,17 +1,21 @@
 package org.flyisland.examples.PTx;
 
-import java.io.IOException;
-
-import com.tangosol.io.pof.PofReader;
-import com.tangosol.io.pof.PofWriter;
-import com.tangosol.io.pof.PortableObject;
+import com.tangosol.io.pof.annotation.Portable;
+import com.tangosol.io.pof.annotation.PortableProperty;
 import com.tangosol.net.cache.KeyAssociation;
 import com.tangosol.util.Base;
 import com.tangosol.util.HashHelper;
 
-public class BalanceId implements PortableObject, KeyAssociation {
+@Portable
+public class BalanceId implements KeyAssociation {
+	@PortableProperty(0)
 	String	account_id;
+	@PortableProperty(1)
 	String	balance_id;
+
+	public BalanceId() {
+		super();
+	}
 
 	public BalanceId(String account_id, String balance_id) {
 		super();
@@ -41,18 +45,6 @@ public class BalanceId implements PortableObject, KeyAssociation {
 	}
 
 	@Override
-	public void readExternal(PofReader reader) throws IOException {
-		setAccount_id(reader.readString(0));
-		setBalance_id(reader.readString(1));
-	}
-
-	@Override
-	public void writeExternal(PofWriter writer) throws IOException {
-		writer.writeString(0, getAccount_id());
-		writer.writeString(1, getBalance_id());
-	}
-
-	@Override
 	public int hashCode() {
 		return HashHelper.hash(account_id, 
 				HashHelper.hash(balance_id,0));
@@ -69,6 +61,12 @@ public class BalanceId implements PortableObject, KeyAssociation {
 		BalanceId other = (BalanceId) toThat;
 		return Base.equals(getAccount_id(), other.getAccount_id()) &&
 				Base.equals(getBalance_id(), other.getBalance_id());
+	}
+
+	@Override
+	public String toString() {
+		return "BalanceId [account_id=" + account_id + ", balance_id="
+				+ balance_id + "]";
 	}
 	
 }
