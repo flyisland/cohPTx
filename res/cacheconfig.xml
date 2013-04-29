@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config"
+              xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+  <defaults>
+    <serializer>pof</serializer>
+  </defaults>
+
+  <caching-scheme-mapping>
+    <cache-mapping>
+      <cache-name>accounts</cache-name>
+      <scheme-name>AccountBalance_P_Scheme</scheme-name>
+    </cache-mapping>
+  </caching-scheme-mapping>
+
+  <caching-schemes>
+    <distributed-scheme>
+      <scheme-name>AccountBalance_P_Scheme</scheme-name>
+      <service-name>AccountBalance_D_Srv</service-name>
+      <backing-map-scheme>
+        <local-scheme>
+          <!-- each node will be limited to 32MB -->
+          <high-units>32M</high-units>
+          <unit-calculator>binary</unit-calculator>
+        </local-scheme>
+      </backing-map-scheme>
+      <autostart>true</autostart>
+    </distributed-scheme>
+
+    <!--
+    Proxy Service scheme that allows remote clients to connect to the
+    cluster over TCP/IP.
+    -->
+    <proxy-scheme>
+      <scheme-name>test-proxy</scheme-name>
+      <service-name>Proxy_Test_Svc</service-name>
+
+      <thread-count system-property="tangosol.coherence.extend.threads">2</thread-count>
+
+      <acceptor-config>
+        <tcp-acceptor>
+          <local-address>
+            <address system-property="tangosol.coherence.extend.address">localhost</address>
+            <port system-property="tangosol.coherence.extend.port">9099</port>
+          </local-address>
+        </tcp-acceptor>
+    </acceptor-config>
+       <autostart system-property="tangosol.coherence.extend.enabled">false</autostart>
+    </proxy-scheme>
+ 
+    <!--
+    Invocation Service scheme.
+    -->
+    <invocation-scheme>
+      <scheme-name>test-invocation</scheme-name>
+      <service-name>Invocation_Test_Svc</service-name>
+
+      <autostart system-property="tangosol.coherence.invocation.autostart">true</autostart>
+    </invocation-scheme>
+
+ </caching-schemes>
+</cache-config>

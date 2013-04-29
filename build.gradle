@@ -1,0 +1,81 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'org.flyisland.examples'
+version = '0.1'
+buildDir = "file:///R:/GradleBuild/${name}"
+def jvm_server_memory = '128m'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile files("${coherenceHome}/lib/coherence.jar")
+    testCompile "junit:junit:4.11"
+}
+
+
+task(cacheServer, type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.tangosol.net.DefaultCacheServer'
+    maxHeapSize = jvm_server_memory
+    minHeapSize = jvm_server_memory
+    jvmArgs = ["-server", "-showversion"]
+    systemProperty "com.sun.management.jmxremote", ""
+    systemProperty "tangosol.coherence.management", "all"
+    systemProperty "tangosol.coherence.management.remote", "true"
+    systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
+}
+
+task(loadcache, type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.flyisland.examples.PTx.LoadCache'
+    systemProperty "tangosol.coherence.distributed.localstorage", "false"
+    systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
+}
+
+task(readcache, type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.flyisland.examples.PTx.ReadCache'
+    systemProperty "tangosol.coherence.distributed.localstorage", "false"
+    systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+		resources {
+			srcDir 'res'
+		}
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+		resources {
+			srcDir 'res'
+		}
+    }
+}
+// First, create a linked resource pointing to our Gradle buildDir, then hook into the .classpath file generation of Gradle to change the output of Eclipse to that linked resource.
+eclipse {
+	project {
+		linkedResource name: 'build', type:'2', location: buildDir.absolutePath
+}
+	
+classpath {
+	file {
+		whenMerged { classpath ->
+			classpath.entries.each { entry ->
+				if (entry.kind == 'output') {
+					entry.path = 'build/eclipse-output'
+				}
+			}
+		}
+	}
+}	
+	
+}
