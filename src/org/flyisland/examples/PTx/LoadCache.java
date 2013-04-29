@@ -31,7 +31,7 @@ public class LoadCache {
 			}
 		}
 
-		System.out.println("\n");
+		System.out.println("");
 		System.out.println("== Size of cache[accounts] is "+nc_act.size());
 		System.out.println("== Size of cache[balances] is "+nc_bal.size());
 	}

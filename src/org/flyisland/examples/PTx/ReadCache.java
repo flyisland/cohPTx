@@ -19,6 +19,7 @@ public class ReadCache {
         NamedCache nc_act = CacheFactory.getCache("accounts");
         NamedCache nc_bal = CacheFactory.getCache("balances");
         
+		System.out.println("");
         System.out.println("=== Value of "+act_id+" is '"+nc_act.get(act_id)+"'");
         System.out.println("=== Value of "+bal_id+"]is '"+nc_bal.get(bal_id)+"'");
 	}
