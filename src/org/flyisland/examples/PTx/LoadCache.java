@@ -1,5 +1,9 @@
 package org.flyisland.examples.PTx;
 
+import org.flyisland.examples.PTx.pof.AccountId;
+import org.flyisland.examples.PTx.pof.Balance;
+import org.flyisland.examples.PTx.pof.BalanceId;
+
 import com.tangosol.net.CacheFactory;
 import com.tangosol.net.NamedCache;
 

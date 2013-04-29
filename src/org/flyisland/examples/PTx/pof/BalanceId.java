@@ -1,4 +1,4 @@
-package org.flyisland.examples.PTx;
+package org.flyisland.examples.PTx.pof;
 
 import com.tangosol.io.pof.annotation.Portable;
 import com.tangosol.io.pof.annotation.PortableProperty;
