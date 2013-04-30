@@ -1,7 +1,10 @@
 package org.flyisland.examples.PTx;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
+import org.flyisland.examples.PTx.pof.Balance;
 import org.flyisland.examples.PTx.pof.BalanceId;
 
 import com.tangosol.net.CacheFactory;
@@ -30,10 +33,13 @@ public class ReadBalance {
 		CacheFactory.ensureCluster();
 		BalanceId	bal_id = new BalanceId(str_aid, str_bid);
         NamedCache nc_bal = CacheFactory.getCache("balances");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Balance		bal = null;
 
         System.out.println("");
         do {
-	        System.out.println("=== "+i_sleep+" === Value of "+bal_id+" is '"+nc_bal.get(bal_id)+"'");
+        	bal = (Balance)nc_bal.get(bal_id);
+	        System.out.println("=== "+sdf.format(new Date())+" === Value of "+bal_id+" is '"+bal+"'");
 	        if (i_sleep>0) {
 	        	Thread.sleep(1000);
 	        	i_sleep--;

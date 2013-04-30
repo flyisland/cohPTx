@@ -14,7 +14,7 @@ public class UpdateBalanceByEP {
 	public static void main(String[] args) {
 		CacheFactory.ensureCluster();
         NamedCache nc_act = CacheFactory.getCache("accounts");
-        nc_act.invoke(new AccountId("a30"), new UpdateBalanceEP(10, ""));
+        nc_act.invoke(new AccountId("a30"), new UpdateBalanceEP(10, "sleep"));
 	}
 
 }
