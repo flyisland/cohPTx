@@ -27,6 +27,14 @@
       <type-id>2001</type-id>
       <class-name>org.flyisland.examples.PTx.ep.UpdateBalanceEP</class-name>
     </user-type>
+    <user-type>
+      <type-id>2002</type-id>
+      <class-name>org.flyisland.examples.PTx.ep.SleepTenSecondsEP</class-name>
+    </user-type>
+    <user-type>
+      <type-id>2003</type-id>
+      <class-name>org.flyisland.examples.PTx.ep.PrintAccoutBackingMapEP</class-name>
+    </user-type>
   </user-type-list>
 
   <allow-interfaces>true</allow-interfaces>
