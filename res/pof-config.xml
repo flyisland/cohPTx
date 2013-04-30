@@ -21,6 +21,12 @@
       <type-id>1003</type-id>
       <class-name>org.flyisland.examples.PTx.pof.Balance</class-name>
     </user-type>
+
+	<!-- EP -->
+    <user-type>
+      <type-id>2001</type-id>
+      <class-name>org.flyisland.examples.PTx.ep.UpdateBalanceEP</class-name>
+    </user-type>
   </user-type-list>
 
   <allow-interfaces>true</allow-interfaces>
