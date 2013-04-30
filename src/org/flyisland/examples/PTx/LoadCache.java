@@ -6,6 +6,7 @@ import org.flyisland.examples.PTx.pof.BalanceId;
 
 import com.tangosol.net.CacheFactory;
 import com.tangosol.net.NamedCache;
+import com.tangosol.util.extractor.PofExtractor;
 
 public class LoadCache {
 
@@ -22,6 +23,7 @@ public class LoadCache {
 		
         NamedCache nc_act = CacheFactory.getCache("accounts");
         NamedCache nc_bal = CacheFactory.getCache("balances");
+        nc_bal.addIndex(new PofExtractor(String.class, 0), false, null);
 		for (a=1;a<=100;a++){
 			str_act_id = "a"+Integer.toString(a);
 			nc_act.put(new AccountId(str_act_id), "Account "+Integer.toString(a));
