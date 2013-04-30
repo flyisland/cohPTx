@@ -18,7 +18,10 @@ public class ReadBalance {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 
-		String	str_aid, str_bid;
+		CacheFactory.ensureCluster();
+        NamedCache nc_bal = CacheFactory.getCache("balances");
+
+        String	str_aid, str_bid;
 		int		i_sleep=0;
 		
 		Scanner sc = new Scanner(System.in);
@@ -30,9 +33,7 @@ public class ReadBalance {
 		i_sleep = sc.nextInt();
 		sc.close();
 		
-		CacheFactory.ensureCluster();
 		BalanceId	bal_id = new BalanceId(str_aid, str_bid);
-        NamedCache nc_bal = CacheFactory.getCache("balances");
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Balance		bal = null;
 
