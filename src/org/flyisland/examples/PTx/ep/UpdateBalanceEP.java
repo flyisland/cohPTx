@@ -18,7 +18,9 @@ import com.tangosol.util.BinaryEntry;
 import com.tangosol.util.Converter;
 import com.tangosol.util.InvocableMap.Entry;
 import com.tangosol.util.InvocableMapHelper;
+import com.tangosol.util.MapIndex;
 import com.tangosol.util.ObservableMap;
+import com.tangosol.util.ValueExtractor;
 import com.tangosol.util.extractor.PofExtractor;
 import com.tangosol.util.filter.EqualsFilter;
 import com.tangosol.util.processor.AbstractProcessor;
@@ -42,7 +44,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 
 	@Override
 	public Object process(Entry entry) {
-		System.out.println("=== Start EP "+this.toString());
+		System.out.println("=== Start EP : "+this.toString());
 		
 		// 1. get account id
 		AccountId aid = (AccountId) entry.getKey();
@@ -54,14 +56,10 @@ public class UpdateBalanceEP extends AbstractProcessor{
 
 		// to use PofExtractor in InvocableMapHelper.query(), must be sure an index has been created with PofExtractor before!
 		// for example: addIndex(new PofExtractor(String.class, 0), false, null);
-		Map m_indexes = be.getContext().getBackingMapContext("balances").getIndexMap();
+		Map<ValueExtractor, MapIndex> m_indexes = be.getContext().getBackingMapContext("balances").getIndexMap();
 		Set<Map.Entry<?,?>> set_balances = InvocableMapHelper.query(om_balance, m_indexes, new EqualsFilter(new PofExtractor(String.class, 0), aid.getId()), true, false, null);
 
 		// 3. update balances
-		BackingMapManagerContext bmmc_bal = bmc_bal.getManagerContext();
-		Converter cvt_vi2o = bmmc_bal.getValueFromInternalConverter();
-		Converter cvt_ki2o = bmmc_bal.getKeyFromInternalConverter();
-
 		for (Map.Entry<?,?> e_bal : set_balances){
 			BinaryEntry be_bal = (BinaryEntry)bmc_bal.getBackingMapEntry(e_bal.getKey());
 			Balance	bal = (Balance)be_bal.getValue();
@@ -90,9 +88,8 @@ public class UpdateBalanceEP extends AbstractProcessor{
 				}
 				
 			}
-			System.out.println("");
 		}
-		System.out.println("=== End EP ("+this.toString());
+		System.out.println("=== End EP : "+this.toString());
 		return null;
 	}
 

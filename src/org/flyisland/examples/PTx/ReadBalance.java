@@ -22,15 +22,15 @@ public class ReadBalance {
         NamedCache nc_bal = CacheFactory.getCache("balances");
 
         String	str_aid, str_bid;
-		int		i_sleep=0;
+		int		i_times=0;
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Please input 'Account ID':");
 		str_aid = sc.next();
 		System.out.print("Please input 'Balance Id':");
 		str_bid = sc.next();
-		System.out.print("Please input 'Sleep Time(in second)':");
-		i_sleep = sc.nextInt();
+		System.out.print("Please input 'Times':");
+		i_times = sc.nextInt();
 		sc.close();
 		
 		BalanceId	bal_id = new BalanceId(str_aid, str_bid);
@@ -41,11 +41,11 @@ public class ReadBalance {
         do {
         	bal = (Balance)nc_bal.get(bal_id);
 	        System.out.println("=== "+sdf.format(new Date())+" === Value of "+bal_id+" is '"+bal+"'");
-	        if (i_sleep>0) {
+	        if (i_times>0) {
 	        	Thread.sleep(1000);
-	        	i_sleep--;
+	        	i_times--;
 	        }
-        }while(i_sleep>0);
+        }while(i_times>0);
         System.out.println("");
 	}
 }
