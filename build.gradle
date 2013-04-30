@@ -26,6 +26,7 @@ task(cacheServer, type: JavaExec) {
     systemProperty "tangosol.coherence.management", "all"
     systemProperty "tangosol.coherence.management.remote", "true"
     systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
+    systemProperty "tangosol.coherence.distributed.threads", "5"
 }
 
 // coherence client
