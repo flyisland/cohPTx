@@ -52,7 +52,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 
 		// to use PofExtractor in InvocableMapHelper.query(), must be sure an index has been created with PofExtractor before!
 		// for example: addIndex(new PofExtractor(String.class, 0), false, null);
-		Map<ValueExtractor, MapIndex> m_indexes = be.getContext().getBackingMapContext("balances").getIndexMap();
+		Map<ValueExtractor, MapIndex> m_indexes = bmc_bal.getIndexMap();
 		Set<Map.Entry<?,?>> set_balances = InvocableMapHelper.query(om_balance, m_indexes, new EqualsFilter(new PofExtractor(String.class, 0), aid.getId()), true, false, null);
 
 		// 3. update balances

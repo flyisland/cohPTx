@@ -24,6 +24,7 @@
       <scheme-name>AccountBalance_P_Scheme</scheme-name>
       <service-name>AccountBalance_D_Srv</service-name>
       <backing-map-scheme>
+      	<partitioned>true</partitioned>
         <local-scheme>
           <!-- each node will be limited to 32MB -->
           <high-units>32M</high-units>
