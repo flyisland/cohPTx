@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 
 group = 'org.flyisland.examples'
 version = '0.1'
-buildDir = "file:///R:/GradleBuild/${name}"
+buildDir = ramDisk + "GradleBuild/${name}"
 def jvm_server_memory = '128m'
 
 repositories {
