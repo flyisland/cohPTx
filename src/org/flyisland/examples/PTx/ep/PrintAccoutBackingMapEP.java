@@ -3,6 +3,7 @@ package org.flyisland.examples.PTx.ep;
 import org.flyisland.examples.PTx.pof.AccountId;
 
 import com.tangosol.io.pof.annotation.Portable;
+import com.tangosol.net.partition.PartitionAwareBackingMap;
 import com.tangosol.util.Converter;
 import com.tangosol.util.InvocableMap.Entry;
 import com.tangosol.util.ObservableMap;
@@ -29,6 +30,9 @@ public class PrintAccoutBackingMapEP extends AbstractProcessor {
 		for (Object o : map.keySet()){
 			AccountId	id = (AccountId)cvt_ki2o.convert(o);
 			System.out.println("\t"+id);
+		}
+		if(map instanceof PartitionAwareBackingMap) {
+			System.out.println("This is a 'PartitionAwareBackingMap'.");
 		}
 		System.out.println("There are "+map.size()+" objects in this backingmap");
 		System.out.println("=== End EP : "+this.toString());
