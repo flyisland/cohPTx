@@ -25,11 +25,25 @@
       <service-name>AccountBalance_D_Srv</service-name>
       <backing-map-scheme>
       	<partitioned>true</partitioned>
-        <local-scheme>
-          <!-- each node will be limited to 32MB -->
-          <high-units>32M</high-units>
-          <unit-calculator>binary</unit-calculator>
-        </local-scheme>
+        <read-write-backing-map-scheme>
+			<internal-cache-scheme>
+               <local-scheme/>
+            </internal-cache-scheme>
+            <cachestore-scheme>
+               <class-scheme>
+                  <class-name>org.flyisland.examples.PTx.cs.LogCacheStore</class-name>
+                     <init-params>
+                        <init-param>
+                           <param-type>java.lang.String</param-type>
+                           <param-value>{cache-name}</param-value>
+                        </init-param>
+                     </init-params>
+                  </class-scheme>
+               </cachestore-scheme>
+        	<write-delay-seconds>10</write-delay-seconds>
+        	<write-batch-factor>0.5</write-batch-factor>
+        	<write-requeue-threshold>5</write-requeue-threshold>
+        </read-write-backing-map-scheme>
       </backing-map-scheme>
       <autostart>true</autostart>
     </distributed-scheme>
