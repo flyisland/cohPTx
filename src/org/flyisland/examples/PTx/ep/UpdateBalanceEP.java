@@ -1,10 +1,10 @@
 package org.flyisland.examples.PTx.ep;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.flyisland.examples.PTx.pof.AccountId;
 import org.flyisland.examples.PTx.pof.Balance;
 
@@ -24,6 +24,7 @@ import com.tangosol.util.processor.AbstractProcessor;
 @Portable
 public class UpdateBalanceEP extends AbstractProcessor{
 
+	static Logger logger = LogManager.getLogger(UpdateBalanceEP.class.getName());
 	private static final long serialVersionUID = -4231456472129888799L;
 	@PortableProperty(0)	private	int	value=0;
 	@PortableProperty(1)	private String	ops;
@@ -40,7 +41,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 
 	@Override
 	public Object process(Entry entry) {
-		System.out.println("=== Start EP : "+this.toString());
+		logger.trace("===> Entered "+this.toString());
 		
 		// 1. get account id
 		AccountId aid = (AccountId) entry.getKey();
@@ -59,10 +60,10 @@ public class UpdateBalanceEP extends AbstractProcessor{
 		for (Map.Entry<?,?> e_bal : set_balances){
 			BinaryEntry be_bal = (BinaryEntry)bmc_bal.getBackingMapEntry(e_bal.getKey());
 			Balance	bal = (Balance)be_bal.getValue();
-			System.out.print("\t"+bal+" -> ");
-			bal.setBalance(bal.getBalance()+value);
-			System.out.println(bal);
+			double d_old = bal.getBalance();
+			bal.setBalance(d_old+value);
 			be_bal.setValue(bal);
+			logger.trace(bal+" from pervious balance: "+d_old);
 		}
 		
 		// ops == fail
@@ -73,11 +74,10 @@ public class UpdateBalanceEP extends AbstractProcessor{
 		// ops == sleep 
 		if (ops.equalsIgnoreCase("sleep")){
 			int i, i_sleep = 10;
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			System.out.println("\t*** Sleep "+i_sleep+" seconds before exit: ");
+			logger.trace("*** Sleep "+i_sleep+" seconds before exit: ");
 			for (i=i_sleep; i>0; i--){
 				try {
-					System.out.println("\t*** "+sdf.format(new Date())+" *** "+i);
+					logger.trace("*** "+i);
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
@@ -85,7 +85,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 				
 			}
 		}
-		System.out.println("=== End EP : "+this.toString());
+		logger.trace("===> Exited: "+this.toString());
 		return null;
 	}
 

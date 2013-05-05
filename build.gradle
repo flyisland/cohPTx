@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
 	compile files("${coherenceHome}/lib/coherence.jar")
+	compile "org.apache.logging.log4j:log4j-api:2.0-beta5"
+	compile "org.apache.logging.log4j:log4j-core:2.0-beta5"
     testCompile "junit:junit:4.11"
 }
 

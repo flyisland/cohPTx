@@ -1,5 +1,7 @@
 package org.flyisland.examples.PTx.ep;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.flyisland.examples.PTx.pof.AccountId;
 import org.flyisland.examples.PTx.pof.Balance;
 import org.flyisland.examples.PTx.pof.BalanceId;
@@ -15,6 +17,7 @@ import com.tangosol.util.processor.AbstractProcessor;
 @Portable
 public class AddRemoveBalanceEP extends AbstractProcessor {
 
+	static Logger logger = LogManager.getLogger(AddRemoveBalanceEP.class.getName());
 	private static final long serialVersionUID = 830192714204591433L;
 	
 	@PortableProperty(0)	private String	balanceId;
@@ -35,7 +38,7 @@ public class AddRemoveBalanceEP extends AbstractProcessor {
 
 	@Override
 	public Object process(Entry entry) {
-		System.out.println("=== Start EP : "+this.toString());
+		logger.trace("===> Entered "+this.toString());
 		
 		AccountId aid = (AccountId) entry.getKey();
 		BinaryEntry be = (BinaryEntry)entry;
@@ -49,7 +52,8 @@ public class AddRemoveBalanceEP extends AbstractProcessor {
 		} else if (addremove.equalsIgnoreCase("remove")){
 			be_bal.remove(false);
 		}
-		
+
+		logger.trace("===> Exited: "+this.toString());
 		return null;
 	}
 

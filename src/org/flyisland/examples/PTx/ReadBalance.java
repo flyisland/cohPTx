@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.flyisland.examples.PTx.pof.Balance;
 import org.flyisland.examples.PTx.pof.BalanceId;
 
@@ -18,6 +20,7 @@ public class ReadBalance {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 
+		Logger logger = LogManager.getLogger(ReadBalance.class.getName());	
 		CacheFactory.ensureCluster();
         NamedCache nc_bal = CacheFactory.getCache("balances");
 
@@ -34,13 +37,12 @@ public class ReadBalance {
 		sc.close();
 		
 		BalanceId	bal_id = new BalanceId(str_aid, str_bid);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Balance		bal = null;
 
         System.out.println("");
         do {
         	bal = (Balance)nc_bal.get(bal_id);
-	        System.out.println("=== "+sdf.format(new Date())+" === Value of "+bal_id+" is '"+bal+"'");
+	        logger.trace("Value of "+bal_id+" is '"+bal+"'");
 	        if (i_times>0) {
 	        	Thread.sleep(1000);
 	        	i_times--;
