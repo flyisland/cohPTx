@@ -1,5 +1,6 @@
 package org.flyisland.examples.PTx.ep;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,13 +58,34 @@ public class UpdateBalanceEP extends AbstractProcessor{
 		Set<Map.Entry<?,?>> set_balances = InvocableMapHelper.query(om_balance, m_indexes, new EqualsFilter(new PofExtractor(String.class, 0), aid.getId()), true, false, null);
 
 		// 3. update balances
+		Set<BinaryEntry>	set_be_bals = new HashSet<BinaryEntry>();
 		for (Map.Entry<?,?> e_bal : set_balances){
 			BinaryEntry be_bal = (BinaryEntry)bmc_bal.getBackingMapEntry(e_bal.getKey());
+			set_be_bals.add(be_bal);
 			Balance	bal = (Balance)be_bal.getValue();
-			double d_old = bal.getBalance();
-			bal.setBalance(d_old+value);
+			logger.trace(" -> before modification: "+bal);
+		}
+		
+		// ops == sleep 
+		if (ops.equalsIgnoreCase("sleep")){
+			int i, i_sleep = 10;
+			logger.trace("*** Sleep "+i_sleep+" seconds before modification: ");
+			for (i=i_sleep; i>0; i--){
+				try {
+					logger.trace("*** "+i);
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		}
+
+		for (BinaryEntry be_bal : set_be_bals){
+			Balance	bal = (Balance)be_bal.getValue();
+			bal.setBalance(bal.getBalance()+value);
 			be_bal.setValue(bal);
-			logger.trace(bal+" from pervious balance: "+d_old);
+			logger.trace(" => after modification: "+bal);
 		}
 		
 		// ops == fail
