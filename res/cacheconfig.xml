@@ -23,12 +23,14 @@
     <distributed-scheme>
       <scheme-name>AccountBalance_P_Scheme</scheme-name>
       <service-name>AccountBalance_D_Srv</service-name>
+      <thread-count>3</thread-count>
       <backing-map-scheme>
       	<partitioned>true</partitioned>
         <read-write-backing-map-scheme>
 			<internal-cache-scheme>
                <local-scheme/>
             </internal-cache-scheme>
+<!--             
             <cachestore-scheme>
                <class-scheme>
                   <class-name>org.flyisland.examples.PTx.cs.LogCacheStore</class-name>
@@ -43,6 +45,7 @@
         	<write-delay-seconds>10</write-delay-seconds>
         	<write-batch-factor>0.5</write-batch-factor>
         	<write-requeue-threshold>5</write-requeue-threshold>
+ -->        	
         </read-write-backing-map-scheme>
       </backing-map-scheme>
       <autostart>true</autostart>
