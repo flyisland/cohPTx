@@ -8,7 +8,7 @@ import com.tangosol.net.CacheFactory;
 import com.tangosol.net.NamedCache;
 import com.tangosol.util.Filter;
 
-public class Batch {
+public class InvokeAll {
 
 	/**
 	 * @param args
