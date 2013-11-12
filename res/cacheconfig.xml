@@ -78,6 +78,7 @@
     <invocation-scheme>
       <scheme-name>test-invocation</scheme-name>
       <service-name>Invocation_Test_Svc</service-name>
+      <thread-count>3</thread-count>
 
       <autostart system-property="tangosol.coherence.invocation.autostart">true</autostart>
     </invocation-scheme>

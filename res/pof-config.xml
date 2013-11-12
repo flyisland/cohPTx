@@ -43,6 +43,10 @@
       <type-id>2005</type-id>
       <class-name>org.flyisland.examples.PTx.ep.NullEP</class-name>
     </user-type>
+    <user-type>
+      <type-id>3001</type-id>
+      <class-name>org.flyisland.examples.PTx.invocable.BatchTask</class-name>
+    </user-type>
   </user-type-list>
 
   <allow-interfaces>true</allow-interfaces>
