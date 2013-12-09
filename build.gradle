@@ -28,7 +28,19 @@ task(cacheServer, type: JavaExec) {
     systemProperty "tangosol.coherence.management", "all"
     systemProperty "tangosol.coherence.management.remote", "true"
     systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
-    systemProperty "tangosol.coherence.distributed.threads", "5"
+}
+
+task(MBean, type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.tangosol.net.management.MBeanConnector'
+    maxHeapSize = jvm_server_memory
+    minHeapSize = jvm_server_memory
+    jvmArgs = ["-server", "-showversion"]
+	args = ["-rmi"]
+    systemProperty "tangosol.coherence.management", "all"
+    systemProperty "com.sun.management.jmxremote.ssl", "false"
+    systemProperty "com.sun.management.jmxremote.authenticate", "false"
+    systemProperty "tangosol.coherence.cacheconfig", "cacheconfig.xml"
 }
 
 // coherence client

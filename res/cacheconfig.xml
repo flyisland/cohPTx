@@ -23,7 +23,7 @@
     <distributed-scheme>
       <scheme-name>AccountBalance_P_Scheme</scheme-name>
       <service-name>AccountBalance_D_Srv</service-name>
-      <thread-count>3</thread-count>
+      <thread-count>5</thread-count>
       <backing-map-scheme>
       	<partitioned>true</partitioned>
         <read-write-backing-map-scheme>
