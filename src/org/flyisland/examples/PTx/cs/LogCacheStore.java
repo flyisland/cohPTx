@@ -11,13 +11,13 @@ import org.apache.logging.log4j.Logger;
 import com.tangosol.net.cache.CacheStore;
 
 public class LogCacheStore implements CacheStore {
-	static Logger logger = LogManager.getLogger(LogCacheStore.class.getName());	
-	
+	static Logger logger = LogManager.getLogger(LogCacheStore.class.getName());
+
 	private	String	m_cachename;
-	
+
 	public LogCacheStore(String cachename) {
 		super();
-		this.m_cachename = cachename;		
+		this.m_cachename = cachename;
 		logger.trace(this.toString()+" is created");
 	}
 
@@ -52,7 +52,7 @@ public class LogCacheStore implements CacheStore {
 	public void storeAll(Map mapEntries) {
 		logger.trace("storeAll()=>" + mapEntries.toString());
 	}
-	
+
 	@Override
 	public String toString() {
 		return "LogCacheStore [" + m_cachename + "]";
