@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 
-
-<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config"
-              xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
+<cache-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.oracle.com/coherence/coherence-cache-config" xsi:schemaLocation="http://xmlns.oracle.com/coherence/coherence-cache-config coherence-cache-config.xsd">
   <defaults>
     <serializer>pof</serializer>
   </defaults>
@@ -25,33 +22,33 @@
       <service-name>AccountBalance_D_Srv</service-name>
       <thread-count>5</thread-count>
       <backing-map-scheme>
-      	<partitioned>true</partitioned>
+        <partitioned>true</partitioned>
         <read-write-backing-map-scheme>
-			<internal-cache-scheme>
-               <local-scheme/>
-            </internal-cache-scheme>
-<!--             
-            <cachestore-scheme>
-               <class-scheme>
-                  <class-name>org.flyisland.examples.PTx.cs.LogCacheStore</class-name>
-                     <init-params>
-                        <init-param>
-                           <param-type>java.lang.String</param-type>
-                           <param-value>{cache-name}</param-value>
-                        </init-param>
-                     </init-params>
-                  </class-scheme>
-               </cachestore-scheme>
+          <internal-cache-scheme>
+            <local-scheme/>
+          </internal-cache-scheme>
+          <cachestore-scheme>
+            <class-scheme>
+              <class-name>org.flyisland.examples.PTx.cs.LogCacheStore</class-name>
+              <init-params>
+                <init-param>
+                  <param-type>java.lang.String</param-type>
+                  <param-value>{cache-name}</param-value>
+                </init-param>
+              </init-params>
+            </class-scheme>
+          </cachestore-scheme>
+<!--
         	<write-delay-seconds>10</write-delay-seconds>
         	<write-batch-factor>0.5</write-batch-factor>
         	<write-requeue-threshold>5</write-requeue-threshold>
- -->        	
+ -->
         </read-write-backing-map-scheme>
       </backing-map-scheme>
       <autostart>true</autostart>
     </distributed-scheme>
 
-    <!--
+<!--
     Proxy Service scheme that allows remote clients to connect to the
     cluster over TCP/IP.
     -->
@@ -68,11 +65,11 @@
             <port system-property="tangosol.coherence.extend.port">9099</port>
           </local-address>
         </tcp-acceptor>
-    </acceptor-config>
-       <autostart system-property="tangosol.coherence.extend.enabled">false</autostart>
+      </acceptor-config>
+      <autostart system-property="tangosol.coherence.extend.enabled">false</autostart>
     </proxy-scheme>
- 
-    <!--
+
+<!--
     Invocation Service scheme.
     -->
     <invocation-scheme>
@@ -83,5 +80,5 @@
       <autostart system-property="tangosol.coherence.invocation.autostart">true</autostart>
     </invocation-scheme>
 
- </caching-schemes>
+  </caching-schemes>
 </cache-config>
