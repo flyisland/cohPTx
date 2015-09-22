@@ -29,7 +29,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 	private static final long serialVersionUID = -4231456472129888799L;
 	@PortableProperty(0)	private	int	value=0;
 	@PortableProperty(1)	private String	ops;
-	
+
 	public UpdateBalanceEP() {
 		super();
 	}
@@ -43,10 +43,10 @@ public class UpdateBalanceEP extends AbstractProcessor{
 	@Override
 	public Object process(Entry entry) {
 		logger.trace("===> Entered "+this.toString());
-		
+
 		// 1. get account id
 		AccountId aid = (AccountId) entry.getKey();
-		
+
 		// 2. get balances with the specific account id
 		BinaryEntry be = (BinaryEntry)entry;
 		BackingMapContext bmc_bal = be.getContext().getBackingMapContext("balances");
@@ -65,8 +65,8 @@ public class UpdateBalanceEP extends AbstractProcessor{
 			Balance	bal = (Balance)be_bal.getValue();
 			logger.trace(" -> before modification: "+bal);
 		}
-		
-		// ops == sleep 
+
+		// ops == sleep
 		if (ops.equalsIgnoreCase("sleep")){
 			int i, i_sleep = 10;
 			logger.trace("*** Sleep "+i_sleep+" seconds before modification: ");
@@ -77,23 +77,24 @@ public class UpdateBalanceEP extends AbstractProcessor{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		}
 
 		for (BinaryEntry be_bal : set_be_bals){
 			Balance	bal = (Balance)be_bal.getValue();
 			bal.setBalance(bal.getBalance()+value);
+			bal.setOps(ops);
 			be_bal.setValue(bal);
 			logger.trace(" => after modification: "+bal);
 		}
-		
+
 		// ops == fail
 		if (ops.equalsIgnoreCase("fail")){
 			throw new RuntimeException("Artificial fail in "+this.toString());
 		}
-		
-		// ops == sleep 
+
+		// ops == sleep
 		if (ops.equalsIgnoreCase("sleep")){
 			int i, i_sleep = 10;
 			logger.trace("*** Sleep "+i_sleep+" seconds before exit: ");
@@ -104,7 +105,7 @@ public class UpdateBalanceEP extends AbstractProcessor{
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		}
 		logger.trace("===> Exited: "+this.toString());

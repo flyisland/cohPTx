@@ -16,7 +16,7 @@ public class UpdateBalanceByEP {
 	public static void main(String[] args) {
 		CacheFactory.ensureCluster();
         NamedCache nc_act = CacheFactory.getCache("accounts");
-        
+
 		String	str_act_id, ops;
 		int		value=0;
 		Scanner sc = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class UpdateBalanceByEP {
 		str_act_id = sc.next();
 		System.out.print("Please input 'balance to change':");
 		value = sc.nextInt();
-		System.out.print("Please input 'Operation(sleep/fail)':");
+		System.out.print("Please input 'Operation(sleep/fail/storefail)':");
 		ops = sc.next();
 		sc.close();
 

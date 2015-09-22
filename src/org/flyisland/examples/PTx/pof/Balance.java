@@ -7,8 +7,9 @@ import com.tangosol.io.pof.annotation.PortableProperty;
 public class Balance {
 	@PortableProperty(0)	private String	accountId;
 	@PortableProperty(1)	private double	balance;
-	
-	
+	@PortableProperty(2)	private String	ops;
+
+
 	public Balance() {
 		super();
 	}
@@ -17,6 +18,15 @@ public class Balance {
 		super();
 		this.accountId = accountId;
 		this.balance = balance;
+		this.ops = "";
+	}
+
+	public String getOps() {
+		return ops;
+	}
+
+	public void setOps(String ops) {
+		this.ops = ops;
 	}
 
 	public String getAccountId() {
@@ -37,6 +47,6 @@ public class Balance {
 
 	@Override
 	public String toString() {
-		return "Balance [accountId=" + accountId + ", balance=" + balance + "]";
+		return "Balance [accountId=" + accountId + ", balance=" + balance + ", ops=" + ops + "]";
 	}
 }

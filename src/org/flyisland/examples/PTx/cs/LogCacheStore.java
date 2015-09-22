@@ -10,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.tangosol.net.cache.CacheStore;
 
+import org.flyisland.examples.PTx.pof.Balance;
+
 public class LogCacheStore implements CacheStore {
 	static Logger logger = LogManager.getLogger(LogCacheStore.class.getName());
 
@@ -46,6 +48,12 @@ public class LogCacheStore implements CacheStore {
 	@Override
 	public void store(Object oKey, Object oValue) {
 		logger.trace("store("+oKey.toString()+", "+oValue.toString()+")");
+		if (oValue instanceof Balance) {
+			Balance	bal = (Balance)oValue;
+			if (bal.getOps().equalsIgnoreCase("storefail")){
+				throw new RuntimeException(this.toString() + " fail in store("+bal.toString()+")");
+			}
+		}
 	}
 
 	@Override
