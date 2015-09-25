@@ -51,7 +51,7 @@ public class LogCacheStore implements CacheStore {
 		if (oValue instanceof Balance) {
 			Balance	bal = (Balance)oValue;
 			if (bal.getOps().equalsIgnoreCase("storefail")){
-				throw new RuntimeException(this.toString() + " fail in store("+bal.toString()+")");
+				throw new RuntimeException("storefail");
 			}
 		}
 	}
