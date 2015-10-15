@@ -20,7 +20,7 @@
     <distributed-scheme>
       <scheme-name>AccountBalance_P_Scheme</scheme-name>
       <service-name>AccountBalance_D_Srv</service-name>
-      <thread-count>5</thread-count>
+      <thread-count>10</thread-count>
       <backing-map-scheme>
         <partitioned>true</partitioned>
         <read-write-backing-map-scheme>
@@ -40,7 +40,8 @@
             <operation-bundling>
                 <bundle-config>
                     <operation-name>all</operation-name>
-                    <preferred-size>2</preferred-size>
+                    <preferred-size>10</preferred-size>
+                    <delay-millis>10</delay-millis>
                 </bundle-config>
             </operation-bundling>
           </cachestore-scheme>
