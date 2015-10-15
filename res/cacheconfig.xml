@@ -37,6 +37,12 @@
                 </init-param>
               </init-params>
             </class-scheme>
+            <operation-bundling>
+                <bundle-config>
+                    <operation-name>all</operation-name>
+                    <preferred-size>2</preferred-size>
+                </bundle-config>
+            </operation-bundling>
           </cachestore-scheme>
 <!--
         	<write-delay-seconds>10</write-delay-seconds>
